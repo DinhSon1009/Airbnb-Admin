@@ -95,7 +95,7 @@ export default function RoomList() {
       minWidth: 300,
       flex: 1,
       renderCell: (params) => {
-        return <span>{params.row?.province || "Unknown"}</span>;
+        return <span>{params.row?.location || "Unknown"}</span>;
       },
     },
     {
@@ -132,7 +132,7 @@ export default function RoomList() {
   const rows = data?.map((item) => ({
     id: item?._id,
     name: item?.name,
-    province: item?.locationId?.province,
+    location: item?.locationId?.name,
     country: item?.locationId?.country,
     image: item?.image,
     // locationId: item?.locationId._id,

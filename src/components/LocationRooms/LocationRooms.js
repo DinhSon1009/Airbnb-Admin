@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import httpServ from "../../services/http.service";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { DataGrid } from "@mui/x-data-grid";
-import moment from "moment";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 
@@ -43,7 +42,7 @@ export default function LocationRooms({ locationId }) {
   const handleDelete = (_id) => {
     if (!selectedRows.length) {
       httpServ
-        .xoaVe(_id)
+        .xoaPhongChoThue(_id)
         .then((res) => {
           setListData(listData.filter((item) => item._id !== _id));
           toast.success("Xóa thành công!");
@@ -87,7 +86,7 @@ export default function LocationRooms({ locationId }) {
       renderCell: (params) => {
         return (
           <>
-            <Link to={"/rooms/" + params.row.id}>
+            <Link to={"/rooms/" + params.row.id + "/" + locationId}>
               <button className="userListEdit">Edit</button>
             </Link>
             <DeleteOutlineIcon
