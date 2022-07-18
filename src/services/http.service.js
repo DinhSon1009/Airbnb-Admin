@@ -1,3 +1,4 @@
+import { AxiosError } from "axios";
 import AxiosServ from "./axios.service";
 
 /* eslint-disable no-useless-constructor */
@@ -71,6 +72,38 @@ class HttpRequestService {
   xoaPhongChoThue = (id) => {
     const uri = `/api/rooms/${id}`;
     return AxiosServ.deleteMothod(uri);
+  };
+  layThongTinChiTietPhongChoThue = (id) => {
+    const uri = `api/rooms/${id}`;
+    return AxiosServ.getMethod(uri);
+  };
+  capNhatThongTinPhongChoThue = (id, data) => {
+    const uri = `/api/rooms/${id}`;
+    return AxiosServ.putMethod(uri, data);
+  };
+  capNhatHinhAnhPhongChoThue = (id, data) => {
+    const uri = `/api/rooms/upload-image/${id}`;
+    return AxiosServ.postMethod(uri, data);
+  };
+  taoPhongChoThue = (data) => {
+    const uri = `/api/rooms`;
+    return AxiosServ.postMethod(uri, data);
+  };
+  layDanhSachPhongChoThueTheoViTri = (id) => {
+    const uri = `/api/rooms?locationId=${id}`;
+    return AxiosServ.getMethod(uri);
+  };
+  layThongTinChiTietVe = (id) => {
+    const uri = `/api/tickets/${id}`;
+    return AxiosServ.getMethod(uri);
+  };
+  capNhatThongTinVe = (id, data) => {
+    const uri = `/api/tickets/${id}`;
+    return AxiosServ.putMethod(uri, data);
+  };
+  taoVe = (data) => {
+    const uri = `/api/tickets`;
+    return AxiosServ.postMethod(uri, data);
   };
 }
 

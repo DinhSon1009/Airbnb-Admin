@@ -59,18 +59,6 @@ export default function Sidebar() {
           </li>
           <li>
             <NavLink
-              style={({ isActive }) =>
-                isActive ? { backgroundColor: "#ece8ff" } : null
-              }
-              className="navLink"
-              to={"/tickets"}
-            >
-              <ConfirmationNumberOutlinedIcon className="icon" />
-              <span>Tickets</span>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
               className="navLink"
               to={"/rooms"}
               style={({ isActive }) =>
@@ -81,6 +69,19 @@ export default function Sidebar() {
               <span>Rooms</span>
             </NavLink>
           </li>
+          <li>
+            <NavLink
+              style={({ isActive }) =>
+                isActive ? { backgroundColor: "#ece8ff" } : null
+              }
+              className="navLink"
+              to={"/tickets"}
+            >
+              <ConfirmationNumberOutlinedIcon className="icon" />
+              <span>Tickets</span>
+            </NavLink>
+          </li>
+
           {/* <li>
             <MessageOutlinedIcon className="icon" />
             <span>Comments</span>

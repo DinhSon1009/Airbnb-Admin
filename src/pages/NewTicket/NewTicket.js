@@ -1,40 +1,50 @@
-import { PublishOutlined } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import httpServ from "../../services/http.service";
 import { toast } from "react-toastify";
 import moment from "moment";
 
-const defaultInputValue = ["checkIn", "checkOut", "userId", "roomId"];
+const defaultInput = {
+  checkOut: moment(new Date()),
+  checkIn: moment(new Date()),
+  roomId: "",
+  userId: "",
+};
 
-export default function Ticket() {
-  const { ticketId } = useParams();
-  const [ticket, setTicket] = useState([]);
-  const [inputValue, setInputValue] = useState();
+export default function NewTicket() {
+  const [inputValue, setInputValue] = useState(defaultInput);
   const [formValid, setFormValid] = useState(false);
   const [errorInput, setErrorInput] = useState("");
-
+  const [locations, setLocations] = useState(null);
+  const [rooms, setRooms] = useState(null);
   useEffect(() => {
     checkValid();
   }, [inputValue, errorInput]);
 
   useEffect(() => {
     httpServ
-      .layThongTinChiTietVe(ticketId)
+      .layDanhSachViTri()
       .then((res) => {
-        setTicket(res.data);
-
-        setInputValue(
-          defaultInputValue.reduce(
-            (result, key) => ({ ...result, [key]: res.data[key] }),
-            {}
-          )
-        );
+        setLocations(res.data);
+        httpServ
+          .layDanhSachPhongChoThueTheoViTri(res.data[0]._id)
+          .then((res) => {
+            setRooms(res.data);
+            setInputValue({ ...inputValue, roomId: res.data[0]._id });
+          })
+          .catch((err) => console.log(err));
       })
-
       .catch((err) => console.log(err));
   }, []);
+
+  const handleRoomSelection = (id) => {
+    httpServ
+      .layDanhSachPhongChoThueTheoViTri(id)
+      .then((res) => {
+        setRooms(res.data);
+      })
+      .catch((err) => console.log(err));
+  };
 
   const checkValid = () => {
     let valid = true;
@@ -55,6 +65,9 @@ export default function Ticket() {
       errorMessage =
         name[0].toUpperCase() + name.substring(1) + " field is required";
     }
+    if (name === "checkIn" || name === "checkOut") {
+      value = moment(new Date(value)).format("LLLL");
+    }
 
     let values = { ...inputValue, [name]: value };
     let errors = { ...errorInput, [name]: errorMessage };
@@ -68,7 +81,7 @@ export default function Ticket() {
     console.log(formValid);
     if (formValid) {
       httpServ
-        .capNhatThongTinVe(ticketId, inputValue)
+        .taoVe(inputValue)
         .then((res) => {
           console.log(res);
           toast.success("Cập nhật thành công");
@@ -82,7 +95,7 @@ export default function Ticket() {
   return (
     <div className="location">
       <div className="titleContainer">
-        <h1 className="title">Edit Ticket</h1>
+        <h1 className="title">New Ticket</h1>
         <Link to="/newTicket">
           <button className="addButton">Create</button>
         </Link>
@@ -98,9 +111,6 @@ export default function Ticket() {
                 type="date"
                 name="checkIn"
                 id="checkIn"
-                placeholder={moment(new Date(ticket?.checkIn)).format(
-                  "yyyy-mm-dd"
-                )}
                 value={moment(new Date(inputValue?.checkIn)).format(
                   "YYYY-MM-DD"
                 )}
@@ -115,9 +125,6 @@ export default function Ticket() {
                 type="date"
                 name="checkOut"
                 id="checkOut"
-                placeholder={moment(new Date(ticket?.checkOut)).format(
-                  "yyyy-mm-dd"
-                )}
                 value={moment(new Date(inputValue?.checkOut)).format(
                   "YYYY-MM-DD"
                 )}
@@ -125,14 +132,35 @@ export default function Ticket() {
               <div className="text-danger">{errorInput?.checkOut}</div>
             </div>
             <div className="updateItem">
-              <label htmlFor="name">Room Name</label>
+              <label>Room Name</label>
+              <select
+                name=""
+                id=""
+                onChange={(e) => handleRoomSelection(e.target.value)}
+              >
+                {locations?.map((location) => (
+                  <option value={location._id}>{location.name}</option>
+                ))}
+              </select>
+            </div>
+            <div className="updateItem">
+              <label htmlFor="userId">User Id</label>
               <input
-                className="updateInput"
                 type="text"
-                name="name"
-                id="name"
-                value={ticket?.roomId?.name}
+                value={inputValue?.userId}
+                placeholder="Enter User Id"
+                name="userId"
+                id="userId"
+                onChange={handleInput}
               />
+            </div>
+            <div className="updateItem">
+              <label htmlFor="name">Room Name</label>
+              <select name="roomId" id="roomId" onChange={handleInput}>
+                {rooms?.map((room) => (
+                  <option value={room?._id}>{room.name}</option>
+                ))}
+              </select>
             </div>
 
             {/* elavator */}

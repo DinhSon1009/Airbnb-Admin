@@ -1,0 +1,69 @@
+.newRoom {
+    flex: 4;
+    padding: 20px;
+  
+ 
+  
+    .titleContainer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  
+    .update {
+      display: flex;
+      padding: 20px;
+      -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+      box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+      margin-left: 20px;
+    }
+    form {
+    display:flex;
+    flex-wrap: wrap;
+    flex: 1;
+    }
+
+    .updateItem {
+      display: flex;
+      flex-direction: column;
+      margin-top: 10px;
+      width: 300px;
+    }
+    .updateItem > label {
+      margin-bottom: 5px;
+      font-size: 16px;
+    }
+    .updateInput {
+      border: none;
+      width: 250px;
+      height: 30px;
+      border-bottom: 1px solid gray;
+      font-size: 14px;
+    }
+  
+    .addButton {
+      width: 80px;
+      border: none;
+      padding: 5px;
+      background-color: teal;
+      border-radius: 5px;
+      cursor: pointer;
+      color: white;
+      font-size: 16px;
+    }
+    .text-danger {
+      color: red;
+    }
+    .button{
+        width: 200px;
+        border: none;
+        background-color: darkblue;
+        color: white;
+        padding: 7px 10px;
+        font-weight: 600;
+        border-radius: 10px;
+        margin-top: 30px;
+        cursor: pointer;
+    }
+  }
+  

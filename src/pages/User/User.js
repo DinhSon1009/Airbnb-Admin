@@ -301,15 +301,6 @@ export default function User() {
                   }
                   alt=""
                 />
-                {/* <label htmlFor="file">
-                  <PublishOutlined className="updateIcon" />
-                </label>
-                <input
-                  onChange={handleAvatarChange}
-                  type="file"
-                  id="file"
-                  style={{ display: "none" }}
-                /> */}
               </div>
               <button
                 onClick={handleSubmit}

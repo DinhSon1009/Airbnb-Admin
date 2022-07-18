@@ -14,8 +14,10 @@ import Location from "./pages/Location/Location";
 import NewLocation from "./pages/NewLocation/NewLocation";
 import TicketList from "./pages/TicketList/TicketList";
 import Ticket from "./pages/Ticket/Ticket";
+import NewTicket from "./pages/NewTicket/NewTicket";
 import RoomList from "./pages/RoomList/RoomList";
 import Room from "./pages/Room/Room";
+import NewRoom from "./pages/NewRoom/NewRoom";
 function App() {
   return (
     <div className="app">
@@ -41,10 +43,12 @@ function App() {
                 <Route index element={<TicketList />} />
                 <Route path=":ticketId" element={<Ticket />} />
               </Route>
+              <Route path="newTicket" element={<NewTicket />} />
               <Route path="rooms">
                 <Route index element={<RoomList />} />
-                <Route path=":roomId" element={<Room />} />
+                <Route path=":roomId/:locationId" element={<Room />} />
               </Route>
+              <Route path="newRoom" element={<NewRoom />} />
             </Route>
           </Routes>
         </div>

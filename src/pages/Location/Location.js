@@ -6,6 +6,7 @@ import httpServ from "../../services/http.service";
 import { toast } from "react-toastify";
 
 import "./Location.scss";
+import LocationRooms from "../../components/LocationRooms/LocationRooms";
 export default function Location() {
   const { locationId } = useParams();
   const [location, setLocation] = useState([]);
@@ -207,7 +208,9 @@ export default function Location() {
           </div>
         </div>
       </div>
-      <div className="container">{/* <TicketList userId={userId} /> */}</div>
+      <div className="container">
+        <LocationRooms locationId={locationId} />
+      </div>
     </div>
   );
 }

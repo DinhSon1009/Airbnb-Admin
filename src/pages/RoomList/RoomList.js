@@ -47,6 +47,31 @@ export default function RoomList() {
       .catch((err) => console.log(err));
   }, []);
 
+  // useEffect(() => {
+  //   const layDanhSachPhongChoThue = async () => {
+  //     const roomList = [];
+  //     const locationList = await httpServ.layDanhSachViTri();
+
+  //     await Promise.all(
+  //       locationList.data.map(async (location) => {
+  //         const res = await httpServ.layDanhSachPhongChoThueTheoViTri(
+  //           location._id
+  //         );
+  //         roomList.push(
+  //           ...res.data.map((room) => {
+  //             return {
+  //               ...room,
+  //               locationId: { ...room.locationId, _id: location._id },
+  //             };
+  //           })
+  //         );
+  //       })
+  //     );
+  //     setData(roomList);
+  //   };
+  //   layDanhSachPhongChoThue();
+  // }, []);
+  console.log(data);
   const columns = [
     { field: "id", headerName: "Id", minWidth: 230 },
     {
@@ -91,7 +116,7 @@ export default function RoomList() {
       renderCell: (params) => {
         return (
           <>
-            <Link to={"/locations/" + params.row.id}>
+            <Link to={"/rooms/" + params.row.id + "/" + params.row.locationId}>
               <button className="userListEdit">Edit</button>
             </Link>
             <DeleteOutlineIcon
@@ -110,6 +135,7 @@ export default function RoomList() {
     province: item?.locationId?.province,
     country: item?.locationId?.country,
     image: item?.image,
+    // locationId: item?.locationId._id,
   }));
 
   return (
