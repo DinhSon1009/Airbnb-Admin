@@ -1,0 +1,72 @@
+.app{
+    display:flex;
+    .appContainer{
+        
+        flex:6;
+    }
+    .addButton {
+        width: 80px;
+        border: none;
+        padding: 5px;
+        background-color: teal;
+        border-radius: 5px;
+        cursor: pointer;
+        color: white;
+        font-size: 16px;
+      }
+      .updateButton{
+        border-radius: 5px;
+        border: none;
+        padding: 5px;
+        cursor: pointer;
+        background-color: darkblue;
+        color: white;
+        font-weight: 600;
+    }
+    .cellWithImg {
+        display: flex;
+        align-items: center;
+    
+        .cellImg {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          object-fit: cover;
+          margin-right: 20px;
+        }
+      }
+    
+      .cellWithStatus {
+        padding: 5px;
+        border-radius: 5px;
+    
+        &.CLIENT {
+          background-color: rgba(0, 128, 0, 0.05);
+          color: green;
+        }
+        &.ADMIN {
+          background-color: rgba(255, 217, 0, 0.05);
+          color: goldenrod;
+        }
+        &.USER {
+          background-color: rgba(255, 0, 0, 0.05);
+          color: crimson;
+        }
+      }
+    
+      .userListEdit{
+        border: none;
+        border-radius: 10px;
+        padding: 5px 10px;
+        background-color: #3bb077;
+        color: white;
+        cursor: pointer;
+        margin-right: 20px;
+    }
+    
+    .userListDelete{
+        color: red;
+        cursor: pointer;
+    }
+   
+}
